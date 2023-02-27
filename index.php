@@ -8,7 +8,8 @@
 </head>
 <body>
   <?php
-    echo "Teste";
+    echo "Teste echo<br/>";
+    print('Teste print')
   ?>
 </body>
 </html>
