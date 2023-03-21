@@ -12,21 +12,14 @@
       box-sizing: border-box;
       padding: 0;
       margin: 0;
-      overflow: auto;
-      background-image: linear-gradient(to left,
-          grey, #010201);
     }
 
     body {
-      background-color: #010201;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 16px;
-      color: white;
-      border-radius: 10px;
-      padding: 1em;
     }
 
     .form {
@@ -36,37 +29,31 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: white;
       padding: .5em;
     }
 
     .form__input {
       margin: 2em;
       padding: 1.5em;
-      width: 80%;
+      width: 100%;
       border: none;
       border: 1px solid #010201;
       border-radius: 5px;
-      color: #ededed;
     }
 
     label {
-      width: 80%;
-    }
-
-    label p {
-      color: #fefefe;
+      width: 100%;
     }
 
     .btn {
-      margin-top: 1em;
+      margin: 1em 0;
       text-transform: uppercase;
       text-decoration: none;
-      width: 20em;
-      height: 3em;
+      width: 24em;
+      height: 3.5em;
       padding: 1em;
       display: inline-block;
-      border-radius: 1.5em;
+      border-radius: 5px;
       transition: all .2s;
       position: relative;
       font-size: .7rem;
@@ -97,10 +84,8 @@
 
   <?php
 
-  $mInput = $nInput = 0;
-  $numArray = [];
-  $primeCont = 0;
-  $primeArray = [];
+  $mInput = $nInput = $primeCout = 0;
+  $numArray = $primeArray = [];
 
   function randomNumber()
   {
@@ -134,7 +119,6 @@
 
     echo 'Digite M números no range de 1 até 100';
     return $boolCondition;
-
   }
 
   function isPrimeNumber($num)
@@ -152,17 +136,19 @@
 
   function showMessage($numArray, $slicedPrimeArray)
   {
-    print_r($numArray);
-    echo '<br/><br/>';
-    echo 'Primos: ';
-    print_r($slicedPrimeArray);
-    echo '<br/>';
-  }
 
-  /* if (isset($_POST['enviar'])) {
-  $mInput = (int) $_POST['mInput'];
-  $nInput = (int) $_POST['nInput'];
-  } */
+    echo "M números: ";
+    foreach ($numArray as $num) {
+      echo $num . ", ";
+    }
+    echo '<br/> <br/>';
+
+    echo 'Primos: ';
+    foreach ($slicedPrimeArray as $num) {
+      echo $num . ", ";
+    }
+    echo '<br/> <br/>';
+  }
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mInput = (int) $_POST['mInput'];
@@ -178,7 +164,7 @@
         array_filter(
           $numArray,
           function ($num) {
-            if (isPrimeNumber($num) === true) {
+            if (isPrimeNumber($num)) {
               return $num;
             }
           }
@@ -190,8 +176,6 @@
       showMessage($numArray, $slicedPrimeArray);
 
     }
-  } else {
-    null;
   }
 
   ?>
