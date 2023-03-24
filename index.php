@@ -71,12 +71,12 @@
   <form class="form" action="" method="POST">
     <label>
       <p>M números:</p>
-      <input class="form__input" type="number" name="mInput" placeholder="Digite quantos números terá seu array"
+      <input class="form__input" type="text" name="mInput" placeholder="Digite quantos números terá seu array"
         required />
     </label>
     <label>
       <p>N primos:</p>
-      <input class="form__input" type="number" name="nInput" placeholder="Digite a quantidade de números primos"
+      <input class="form__input" type="text" name="nInput" placeholder="Digite a quantidade de números primos"
         required />
     </label>
     <input class="btn" type="submit" value="Enviar" name="enviar" />
@@ -90,6 +90,26 @@
   function randomNumber()
   {
     return rand(1, 1000);
+  }
+
+  function isNumeric($m, $n)
+  {
+    if (empty($m) || strstr($m, " ") || empty($n) || strstr($n, " ")) {
+      echo "Campo m ou n não pode ficar vazio!";
+      return false;
+    }
+
+    if (!is_numeric($m) || !is_numeric($n)) {
+      echo "Campo m ou n precisa ser um número inteiro!";
+      return false;
+    }
+
+    if (is_float($m) || is_float($n)) {
+      echo "Campo m ou n precisa não pode ser float";
+      return false;
+    }
+
+    return true;
   }
 
   function nIsBiggerThanM($m, $n)
@@ -151,10 +171,10 @@
   }
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mInput = (int) $_POST['mInput'];
-    $nInput = (int) $_POST['nInput'];
+    $mInput = $_POST['mInput'];
+    $nInput = $_POST['nInput'];
 
-    if (nIsBiggerThanM($mInput, $nInput) && isNegativeNumber($mInput, $nInput) && mMaxrange($mInput)) {
+    if (isNumeric($mInput, $nInput) && nIsBiggerThanM($mInput, $nInput) && isNegativeNumber($mInput, $nInput) && mMaxrange($mInput)) {
       for ($i = 0; $i < $mInput; $i++) {
         array_push($numArray, randomNumber());
       }
