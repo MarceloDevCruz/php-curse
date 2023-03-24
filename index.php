@@ -104,11 +104,6 @@
       return false;
     }
 
-    if (is_float($m) || is_float($n)) {
-      echo "Campo m ou n precisa não pode ser float";
-      return false;
-    }
-
     return true;
   }
 
@@ -171,8 +166,9 @@
   }
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mInput = $_POST['mInput'];
-    $nInput = $_POST['nInput'];
+    $mInput = (int) $_POST['mInput'];
+    $nInput = (int) $_POST['nInput'];
+
 
     if (isNumeric($mInput, $nInput) && nIsBiggerThanM($mInput, $nInput) && isNegativeNumber($mInput, $nInput) && mMaxrange($mInput)) {
       for ($i = 0; $i < $mInput; $i++) {
